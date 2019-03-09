@@ -1,15 +1,14 @@
 module.exports = (app) => {
 
     const findAll = (req, res) => {
-        const users = [{
-            name: 'jr',
-            email: 'jr@gmail.com',
-        }];
-        res.status(200).json(users)
+        app.db('users').select()
+            .then(res => res.status(200).json(res))
+            .catch(err => res.send(err));
     };
 
-    const create = (req, res) => {
-        res.status(201).json(req.body);
+    const create = async (req, res) => {
+        const result = await app.db('users').insert(req.body, '*')
+        res.status(201).json(result[0]);
     };
 
     return { findAll, create };
