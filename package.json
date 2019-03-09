@@ -1,0 +1,24 @@
+{
+  "name": "seubarriga",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest",
+    "secure-mode": "jest --watchAll --verbose=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.3.1",
+    "supertest": "^3.4.2"
+  },
+  "dependencies": {
+    "consign": "0.1.6",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "pg": "^7.8.2"
+  }
+}
