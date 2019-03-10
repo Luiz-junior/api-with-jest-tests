@@ -2,7 +2,7 @@ const request = require('supertest');
 
 const app = require('../../src/app');
 
-test('deve listar todos os usuários ', () => {
+test('should list all users ', () => {
     return request(app).get('/users')
         .then(res => {
             expect(res.status).toBe(200);
@@ -11,12 +11,21 @@ test('deve listar todos os usuários ', () => {
         });
 });
 
-test.only('Deve inserir usuario com sucesso ', () => {
+test('should insert user successfully', () => {
     const email = `${Date.now()}@mail.com`;
     return request(app).post('/users')
-        .send({ name: "dante", email, password: "123" })
+        .send({ name: "jack", email, password: "123" })
         .then(res => {
             expect(res.status).toBe(201)
-            expect(res.body.name).toBe('dante');
+            expect(res.body.name).toBe('jack');
+        });
+});
+
+test('should not enter unnamed user', () => {
+    return request(app).post('/users')
+        .send({ email: 'jr@gmail.com', password: "123" })
+        .then(res => {
+            expect(res.status).toBe(400)
+            expect(res.body.error).toBe('Name é um atributo obrigatório')
         });
 });

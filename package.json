@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "test": "jest",
     "secure-mode": "jest --watchAll --verbose=true"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^24.3.1",
+    "nodemon": "^1.18.10",
     "supertest": "^3.4.2"
   },
   "dependencies": {
