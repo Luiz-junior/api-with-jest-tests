@@ -2,6 +2,8 @@ const request = require('supertest');
 
 const app = require('../../src/app');
 
+const email = `${Date.now()}@mail.com`;
+
 test('should list all users ', () => {
     return request(app).get('/users')
         .then(res => {
@@ -12,7 +14,6 @@ test('should list all users ', () => {
 });
 
 test('should insert user successfully', () => {
-    const email = `${Date.now()}@mail.com`;
     return request(app).post('/users')
         .send({ name: "jack", email, password: "123" })
         .then(res => {
@@ -46,4 +47,13 @@ test('should not user without password', (done) => {
             expect(res.body.error).toBe('Password é um atributo obrigatório')
             done();
         })
+});
+
+test('should not user with existing email', () => {
+    return request(app).post('/users')
+        .send({ name: "jack", email, password: "123" })
+        .then(res => {
+            expect(res.status).toBe(400)
+            expect(res.body.error).toBe('Já existe um usuário com este email');
+        });
 });
