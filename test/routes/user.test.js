@@ -30,10 +30,20 @@ test('should not enter unnamed user', () => {
         });
 });
 
-test('should not user user without email', async () => {
+test('should not user without email', async () => {
     const result = await request(app).post('/users')
         .send({ name: "Kelly", password: "123" });
 
     expect(result.status).toBe(400);
     expect(result.body.error).toBe('Email é um atributo obrigatório');
+});
+
+test('should not user without password', (done) => {
+    request(app).post('/users')
+        .send({ name: "divina", email: 'divina@gmail.com' })
+        .then(res => {
+            expect(res.status).toBe(400)
+            expect(res.body.error).toBe('Password é um atributo obrigatório')
+            done();
+        })
 });
